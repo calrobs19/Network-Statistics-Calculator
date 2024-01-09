@@ -27,4 +27,10 @@ public class CsvData {
 	
 
 }
+	public int getLocalIP() {
+		return localIP;
+	}
+	public int getFlows() {
+		return flows;
+	}
 }

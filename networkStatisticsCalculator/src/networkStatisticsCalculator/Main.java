@@ -1,12 +1,13 @@
 package networkStatisticsCalculator;
 import java.io.*;
-
+import java.util.HashMap;
 import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class Main {
+	// 
 
 	public static void main(String[] args) {
 	
@@ -16,7 +17,25 @@ public class Main {
         //System.out.println(data.toString());
         //}
         System.out.println(dataList.size());
-	}
+        
+        NetworkStatistics networkStats = new NetworkStatistics();
+        HashMap<Integer,Integer> connectionsPerPerson = networkStats.connectionsPerPerson(dataList);
+        
+        for (HashMap.Entry<Integer, Integer> entry :connectionsPerPerson.entrySet())	{
+        	int localIP = entry.getKey();
+        	int totalFlows = entry.getValue();
+        	System.out.println("LocalIP: "+localIP+ ", Total Flows "+totalFlows);
+        }
+        }
+        
+        
+         
+        
+        
+        
+        
+        
+	
 private static List<CsvData> readCsvFile(String filename){
 	
 	 List<CsvData> dataList = new ArrayList<>();
