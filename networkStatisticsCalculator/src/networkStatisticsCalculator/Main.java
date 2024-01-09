@@ -1,11 +1,66 @@
 package networkStatisticsCalculator;
+import java.io.*;
+
+import java.io.BufferedReader;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Main {
 
 	public static void main(String[] args) {
 	
-		CsvData csvdata = new CsvData("8/1/2024",20,100,8);
-        System.out.println(csvdata.toString());
+		String file = "data/PCAP Data.csv";
+		List<CsvData> dataList = readCsvFile(file);
+        //for(CsvData data:dataList) {
+        //System.out.println(data.toString());
+        //}
+        System.out.println(dataList.size());
 	}
+private static List<CsvData> readCsvFile(String filename){
+	
+	 List<CsvData> dataList = new ArrayList<>();
+	 BufferedReader reader  = null;
+     String line = "";
+	
+	 try {
+     	reader = new BufferedReader(new FileReader(filename));
+     	
+     	boolean isHeader = true;
+     	
+     	while((line = reader.readLine())!=null) {
+     	
+     		  if (isHeader) {
+                  isHeader = false;
+                  continue;
+              }	
+     
+        
+     	String[] row = line.split(",");
+     	String date = (row[0]);
+     	int localIP = Integer.parseInt(row[1]);
+     	int remoteASN = Integer.parseInt(row[2]);
+     	int flows = Integer.parseInt(row[3]);
+     	CsvData csvdata = new CsvData(date, localIP, remoteASN,flows);
+     	dataList.add(csvdata);
+     	 
+     	}
+     }
+     catch(Exception e) {
+     	e.printStackTrace();
+     }
+    
+	 finally {
+         try {
+             if (reader != null) {
+                 reader.close();
+             }
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+	 }
+     return dataList;
+	 
 
+}
 }
