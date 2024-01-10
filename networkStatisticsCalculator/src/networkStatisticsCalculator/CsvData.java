@@ -17,20 +17,28 @@ public class CsvData {
 		this.flows = flows;
 	}
 
-	//overrode the toString method to view contents of the object
+	// overrode the toString method to view contents of the object
 	@Override
 	public String toString() {
 		return "CsvData{" + "date='" + date + '\'' + ", localIP=" + localIP + ", remoteASN=" + remoteASN + ", flows="
 				+ flows + '}';
 	}
-	
-    //to access the localIP property
+
+	// to access the localIP property
 	public int getLocalIP() {
 		return localIP;
 	}
-    
-	//to access the flows property
+
+	// to access the flows property
 	public int getFlows() {
 		return flows;
+	}
+
+	public int getASN() {
+		return remoteASN;
+	}
+
+	public String getDate() {
+		return date;
 	}
 }

@@ -6,19 +6,29 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {	
+public class Main {
 	public static void main(String[] args) {
 		String file = "data/PCAP Data.csv";
 		List<CsvData> dataList = readCsvFile(file);
 
 		NetworkStatistics networkStats = new NetworkStatistics();
-		HashMap<Integer, Integer> connectionsPerPerson = networkStats.connectionsPerPerson(dataList);
+		HashMap<Integer, Integer> connectionsPerUser = networkStats.connectionsPerUser(dataList);
 
-		for (HashMap.Entry<Integer, Integer> entry : connectionsPerPerson.entrySet()) {
+		for (HashMap.Entry<Integer, Integer> entry : connectionsPerUser.entrySet()) {
 			int localIP = entry.getKey();
 			int totalFlows = entry.getValue();
 			System.out.println("LocalIP: " + localIP + ", Total Flows " + totalFlows);
 		}
+		HashMap<Integer, Integer> totalNumberOfconnectionsPerASN = networkStats
+				.totalNumberOfconnectionsPerASN(dataList);
+
+		for (HashMap.Entry<Integer, Integer> entry : totalNumberOfconnectionsPerASN.entrySet()) {
+			int remoteASN = entry.getKey();
+			int totalFlows = entry.getValue();
+			System.out.println("remote ASN: " + remoteASN + ", Total Flows " + totalFlows);
+		}
+		networkStats.totalNumberOfConnectionsPerWeek(dataList);
+
 	}
 
 	// reads the CSV file, ignores the header and returns a list of CSV data objects
@@ -30,15 +40,15 @@ public class Main {
 		List<CsvData> dataList = new ArrayList<>();
 		BufferedReader reader = null;
 		String line = "";
-		
+
 		// using exception handling to catch different exceptions
 		try {
 			reader = new BufferedReader(new FileReader(filename));
 			boolean isHeader = true;
-			
-            //created while loop to loop through all the data in the CSV file
+
+			// created while loop to loop through all the data in the CSV file
 			while ((line = reader.readLine()) != null) {
-				//ignores the header 
+				// ignores the header
 				if (isHeader) {
 					isHeader = false;
 					continue;
@@ -53,8 +63,7 @@ public class Main {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			try {
 				if (reader != null) {
 					reader.close();
@@ -63,7 +72,7 @@ public class Main {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return dataList;
 	}
 }
