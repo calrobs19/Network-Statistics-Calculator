@@ -2,24 +2,38 @@ package networkStatisticsCalculator;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
 public class FileUtilities {
-	public void createFile() {
-// create a file if the file doesn't already exist
-// add exception handling
+	
+	
+
+	public void writeToFile(NetworkStatistics networkStats, List<CsvData> dataList) {
+		List<Entry<Integer, Integer>> topUserConnections = networkStats.connectionsPerUser(dataList);
+		List<Entry<Integer, Integer>> topConnectionsPerASN = networkStats.totalNumberOfconnectionsPerASN(dataList);
+		List<Entry<String, Integer>> topConnectionsPerWeek = networkStats.totalNumberOfConnectionsPerWeek(dataList);
+		String topUsers = String.format("top user connections: %s \n",topUserConnections.toString());
+		String topConnections = String.format("top Connections per ASN: %s \n",topConnectionsPerASN.toString());
+		String topUserConnectionsPerWeek = String.format("top user connections: %s \n",topConnectionsPerWeek.toString());
+		try {
+			FileWriter writer = new FileWriter("NetStatistics.txt");
+			writer.write("");
+
+			writer.write(topUsers);
+			writer.write(topConnections);
+			writer.write(topUserConnectionsPerWeek);
+			writer.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public void writeToFile() {
-// open file created
-// clear any data inside file if it already exists
-// write data to the file
-// add exception handling
-	}
-
-	//reads the CSV file, ignores the header and returns a list of CSV data objects
+	// reads the CSV file, ignores the header and returns a list of CSV data objects
 	/**
 	 * @param String filename
 	 * @return List of CsvData

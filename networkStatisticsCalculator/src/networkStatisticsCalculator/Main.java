@@ -12,8 +12,6 @@ public class Main {
 		// initialise network stats object create file and write the network stats to
 		// file with datalist
 		NetworkStatistics networkStats = new NetworkStatistics();
-		networkStats.connectionsPerUser(dataList);
-		//fileUtilities.createFile();
-		//fileUtilities.writeToFile(networkStats, dataList);
+		fileUtilities.writeToFile(networkStats, dataList);
 	}
 }
