@@ -12,13 +12,18 @@ import java.time.LocalDate;
  * statistics
  */
 public class NetworkStatistics {
+	private List<CsvData> dataList;
+	public NetworkStatistics(List<CsvData> dataList1) {
+		this.dataList = dataList1;
+	}
+	
 	// adds total number of flows then allocates said flows to each local IP and
 	// then a hashmap of the results is returned
 	/**
 	 * @param List of CsvData
 	 * @return HashMap of Integer, Integer
 	 */
-	public List<Map.Entry<Integer, Integer>> connectionsPerUser(List<CsvData> dataList) {
+	public List<Map.Entry<Integer, Integer>> connectionsPerUser() {
 		HashMap<Integer, Integer> userConnections = new HashMap<Integer, Integer>();
 
 		for (CsvData data : dataList) {
@@ -34,7 +39,7 @@ public class NetworkStatistics {
 		return topFlowsPerIP;
 	}
    
-	public List<Map.Entry<String, Integer>> totalNumberOfConnectionsPerWeek(List<CsvData> dataList) {
+	public List<Map.Entry<String, Integer>> totalNumberOfConnectionsPerWeek() {
 		HashMap<String, Integer> connectionsPerWeek = new HashMap<>();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
@@ -57,7 +62,7 @@ public class NetworkStatistics {
 		return weekStartDate.format(formatter);
 	}
 
-	public List<Map.Entry<Integer, Integer>> totalNumberOfconnectionsPerASN(List<CsvData> dataList) {
+	public List<Map.Entry<Integer, Integer>> totalNumberOfconnectionsPerASN() {
 		HashMap<Integer, Integer> connectionsPerASN = new HashMap<Integer, Integer>();
 
 		for (CsvData data : dataList) {

@@ -9,9 +9,7 @@ public class Main {
 		FileUtilities fileUtilities = new FileUtilities();
 		List<CsvData> dataList = fileUtilities.readCsvFile(file);
 
-		// initialise network stats object create file and write the network stats to
-		// file with datalist
-		NetworkStatistics networkStats = new NetworkStatistics();
-		fileUtilities.writeToFile(networkStats, dataList);
+		// create file and write the network stats to file with datalist
+		fileUtilities.writeToFile(dataList);
 	}
 }

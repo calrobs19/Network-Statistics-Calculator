@@ -12,10 +12,12 @@ public class FileUtilities {
 	
 	
 
-	public void writeToFile(NetworkStatistics networkStats, List<CsvData> dataList) {
-		List<Entry<Integer, Integer>> topUserConnections = networkStats.connectionsPerUser(dataList);
-		List<Entry<Integer, Integer>> topConnectionsPerASN = networkStats.totalNumberOfconnectionsPerASN(dataList);
-		List<Entry<String, Integer>> topConnectionsPerWeek = networkStats.totalNumberOfConnectionsPerWeek(dataList);
+	public void writeToFile(List<CsvData> dataList) {
+		//initialise network stats object 
+		NetworkStatistics networkStats = new NetworkStatistics(dataList);
+		List<Entry<Integer, Integer>> topUserConnections = networkStats.connectionsPerUser();		
+		List<Entry<Integer, Integer>> topConnectionsPerASN = networkStats.totalNumberOfconnectionsPerASN();
+		List<Entry<String, Integer>> topConnectionsPerWeek = networkStats.totalNumberOfConnectionsPerWeek();
 		String topUsers = String.format("top user connections: %s \n",topUserConnections.toString());
 		String topConnections = String.format("top Connections per ASN: %s \n",topConnectionsPerASN.toString());
 		String topUserConnectionsPerWeek = String.format("top user connections: %s \n",topConnectionsPerWeek.toString());
@@ -27,7 +29,7 @@ public class FileUtilities {
 			writer.write(topConnections);
 			writer.write(topUserConnectionsPerWeek);
 			writer.close();
-			
+			 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
