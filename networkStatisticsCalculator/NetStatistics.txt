@@ -1,3 +1,14 @@
-top user connections: [14=1175417, 12=195713, 11=195691] 
-top Connections per ASN: [3671=1059254, 3265=106508, 15169=53571] 
-top user connections: [09/12/2022=1116408, 08/15/2022=111115, 08/22/2022=96724] 
+Network Statistics for highest number of connections per local IP
+The user with the local IP 14 has 1175417 total flows between July and September
+The user with the local IP 12 has 195713 total flows between July and September
+The user with the local IP 11 has 195691 total flows between July and September
+
+Network Statistics for highest number of connections in a single ASN
+The remote ASN 3671 has 1059254 total flows between July and September
+The remote ASN 3265 has 106508 total flows between July and September
+The remote ASN 15169 has 53571 total flows between July and September
+
+Network Statistics for highest number of connections in a single week
+The week starting on the date 09/12/2022 has 1116408 total flows
+The week starting on the date 08/15/2022 has 111115 total flows
+The week starting on the date 08/22/2022 has 96724 total flows

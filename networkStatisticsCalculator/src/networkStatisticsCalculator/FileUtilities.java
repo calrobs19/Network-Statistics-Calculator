@@ -9,27 +9,41 @@ import java.util.List;
 import java.util.Map.Entry;
 
 public class FileUtilities {
-	
-	
 
 	public void writeToFile(List<CsvData> dataList) {
-		//initialise network stats object 
+		// initialise network stats object
 		NetworkStatistics networkStats = new NetworkStatistics(dataList);
-		List<Entry<Integer, Integer>> topUserConnections = networkStats.connectionsPerUser();		
+		List<Entry<Integer, Integer>> topUserConnections = networkStats.connectionsPerUser();
 		List<Entry<Integer, Integer>> topConnectionsPerASN = networkStats.totalNumberOfconnectionsPerASN();
 		List<Entry<String, Integer>> topConnectionsPerWeek = networkStats.totalNumberOfConnectionsPerWeek();
-		String topUsers = String.format("top user connections: %s \n",topUserConnections.toString());
-		String topConnections = String.format("top Connections per ASN: %s \n",topConnectionsPerASN.toString());
-		String topUserConnectionsPerWeek = String.format("top user connections: %s \n",topConnectionsPerWeek.toString());
+	
 		try {
 			FileWriter writer = new FileWriter("NetStatistics.txt");
 			writer.write("");
 
-			writer.write(topUsers);
-			writer.write(topConnections);
-			writer.write(topUserConnectionsPerWeek);
+			writer.write("Network Statistics for highest number of connections per local IP\n");
+			for (Entry<Integer, Integer> entry : topUserConnections) {
+				int localIP = entry.getKey();
+				int totalFlows = entry.getValue();
+				writer.write(String.format("The user with the local IP %s has %s total flows between July and September\n",
+						localIP, totalFlows));				
+			}
+			writer.write("\nNetwork Statistics for highest number of connections in a single ASN\n");
+			for (Entry<Integer, Integer> entry : topConnectionsPerASN) {
+				int remoteASN = entry.getKey();
+				int totalFlows = entry.getValue();
+				writer.write(String.format("The remote ASN %s has %s total flows between July and September\n", remoteASN,
+						totalFlows));
+			}
+			writer.write("\nNetwork Statistics for highest number of connections in a single week\n");
+			for (Entry<String, Integer> entry : topConnectionsPerWeek) {
+				String date = entry.getKey();
+				int totalFlows = entry.getValue();
+				writer.write(String.format("The week starting on the date %s has %s total flows\n",
+						date, totalFlows));
+			}
 			writer.close();
-			 
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
